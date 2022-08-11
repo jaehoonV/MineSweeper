@@ -43,6 +43,7 @@ window.onload = function () {
       if ($(this).hasClass("check")) {
          return;
       }
+      $('.mine').removeClass("check");
       $('.mine').addClass("clickMine");
       clearInterval(timer);
       $("#game_board").addClass("earthquake");
@@ -55,7 +56,7 @@ window.onload = function () {
    $(document).on('mousedown', '.notMine, .mine', function (e) {
       e.preventDefault();
       let k = Number($(this).attr("value"));
-      if (e.button === 2) {
+      if (e.button === 2 && !$(this).hasClass("clickNotMine")) {
          $(this).toggleClass("check");
       }
 
