@@ -1,0 +1,72 @@
+html, body{
+    box-sizing: border-box;
+	background-color: #edf1f4;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+div{
+    padding: 0;
+    margin: 1px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#game_board{
+    width: 33rem;
+    height: 32rem;
+    margin: 0 auto;
+}
+
+.notMine, .mine{
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgb(112, 104, 104);
+    text-align: center;
+    color: rgb(112, 104, 104);
+    line-height: 3rem;
+    background-color: rgb(112, 104, 104);
+    font-weight: 800;
+}
+
+h2{
+    margin: 0 auto;
+    width: 25rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.clickNotMine{
+    background-color: #e3eff8;
+    transition: all 0.5s ease-in-out;
+}
+
+.clickMine{
+    background-color: #e3eff8;
+    transition: all 0.5s ease-in-out;
+    border: 1px solid red;
+    color: red;
+}
+
+.check{
+    background-color: bisque;
+    color: bisque;
+}
+
+.earthquake{
+    animation: earthquake 150ms 5;
+}
+
+@keyframes earthquake {
+    25%{ transform:rotate(-2deg) translateX(-2px); }
+    50%{ transform:translateY(-1px); }
+    75%{ transform:rotate(2deg) translateY(2px); }
+}
+  
