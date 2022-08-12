@@ -20,7 +20,7 @@ window.onload = function () {
       return a - b;
    });
 
-   console.log(num);
+   let click_cnt = 0;
    let k = 0;
 
    let createDiv = "<br>";
@@ -47,10 +47,19 @@ window.onload = function () {
       $('.mine').addClass("clickMine");
       clearInterval(timer);
       $("#game_board").addClass("earthquake");
-      setTimeout(function () {
-         alert("!!!");
-      }, 700);
+      $('.click_cnt').html(click_cnt);
 
+      // 시간   
+      let m_time = $('#minutes_tens').text() + $('#minutes_ones').text();
+      let s_time = $('#seconds_tens').text() + $('#seconds_ones').text();
+      if(m_time != "00"){
+         m_time += "분";
+         $('.minutes_time').html(m_time);
+      }
+      $('.seconds_time').html(s_time);
+
+      $('#failed').css('display','block');
+      $('#failed').css({opacity: 0}).animate({opacity: 1}, 1100);
    })
 
    $(document).on('mousedown', '.notMine, .mine', function (e) {
@@ -61,6 +70,7 @@ window.onload = function () {
       }
 
       if (e.button === 0 && !$(this).hasClass("check") && !$(this).hasClass("mine")) {
+         click_cnt++;
          $(this).addClass("clickNotMine");
          console.log(k);
          let s_1 = k - 11;
@@ -455,5 +465,8 @@ window.onload = function () {
        })
        flipCard.append(topFlip, bottomFlip)
     }
-
+   $('.retry_btn').click(function() {
+      location.reload();
+   });
+   
 }
