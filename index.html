@@ -15,10 +15,10 @@
         </script>
     </head>
     <body>
-        <h2> 10 X 10 MineSweeper</h2>
+         <h2> 10 X 10 MineSweeper</h2>
 
-        <!-- 타이머 -->
-        <div class="container">
+         <!-- 타이머 -->
+         <div class="container">
             <div class="container-segment">
                <div class="segment-title">Minutes</div>
                <div class="segment">
@@ -47,13 +47,30 @@
             </div>
          </div>
 
-        <div id="game_board"></div>
+         <div id="game_board"></div>
 
-        <div id="failed"><i class="fa-solid fa-face-dizzy fa-2xl"></i><br>
-         <div class="click_cnt_div">클릭 : <span class="click_cnt"></span>회   <br>
-            시간 : <span class="minutes_time"></span> <span class="seconds_time"></span>초
+         <div id="failed">
+            <i class="fa-solid fa-face-dizzy fa-2xl"></i><br>
+            <div class="click_cnt_div">클릭 : 
+               <span class="click_cnt"></span>회   
+               <br>
+               시간 : 
+               <span class="minutes_time"></span> 
+               <span class="seconds_time"></span>초
+            </div>
+            <button class="retry_btn">Retry</button>
          </div>
-         <button class="retry_btn">Retry</button>
-      </div>
-    </body>
+
+         <div id="won">
+            <i class="fa-solid fa-face-laugh-beam fa-2xl"></i><br>
+            <div class="click_cnt_div">클릭 :
+                <span class="click_cnt"></span>회
+                <br>
+                시간 :
+                <span class="minutes_time"></span>
+                <span class="seconds_time"></span>초
+            </div>
+            <button class="retry_btn">Retry</button>
+         </div>
+      </body>
 </html>

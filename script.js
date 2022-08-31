@@ -39,6 +39,9 @@ window.onload = function () {
 
    document.querySelector("#game_board").innerHTML = createDiv;
 
+   // 번호 저장을 위한 set
+   let open_div_set = new Set();
+
    $(document).on('click', '.mine', function (e) {
       if ($(this).hasClass("check")) {
          return;
@@ -50,17 +53,34 @@ window.onload = function () {
       $('.click_cnt').html(click_cnt);
 
       // 시간   
-      let m_time = $('#minutes_tens').text() + $('#minutes_ones').text();
-      let s_time = $('#seconds_tens').text() + $('#seconds_ones').text();
-      if(m_time != "00"){
-         m_time += "분";
-         $('.minutes_time').html(m_time);
-      }
-      $('.seconds_time').html(s_time);
+      time_func();
 
       $('#failed').css('display','block');
       $('#failed').css({opacity: 0}).animate({opacity: 1}, 1100);
    })
+
+   function won(){
+      clearInterval(timer);
+      $("#game_board").addClass("beat");
+     $('.click_cnt').html(click_cnt);
+
+     // 시간   
+     time_func();
+
+     $('#won').css('display','block');
+     $('#won').css({opacity: 0}).animate({opacity: 1}, 1100);
+   }
+
+   // 시간
+   function time_func() {
+      let m_time = $('#minutes_tens').text() + $('#minutes_ones').text();
+      let s_time = $('#seconds_tens').text() + $('#seconds_ones').text();
+      if (m_time != "00") {
+          m_time += "분";
+          $('.minutes_time').html(m_time);
+      }
+      $('.seconds_time').html(s_time);
+   }
 
    $(document).on('mousedown', '.notMine, .mine', function (e) {
       e.preventDefault();
@@ -73,6 +93,7 @@ window.onload = function () {
          click_cnt++;
          $(this).addClass("clickNotMine");
          console.log(k);
+         open_div_set.add(k);
          let s_1 = k - 11;
          let s_2 = k - 10;
          let s_3 = k - 9;
@@ -236,6 +257,7 @@ window.onload = function () {
 
    function minefind(s) {
       let temp_id = makeNumId(s);
+      open_div_set.add(s);
 
       let s_1 = s - 11;
       let s_2 = s - 10;
@@ -254,8 +276,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_5);
             checkMinefind(s_7);
@@ -270,8 +291,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_4);
             checkMinefind(s_6);
@@ -286,8 +306,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_2);
             checkMinefind(s_3);
@@ -302,8 +321,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_1);
             checkMinefind(s_2);
@@ -318,8 +336,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_4);
             checkMinefind(s_5);
@@ -336,8 +353,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_1);
             checkMinefind(s_2);
@@ -354,8 +370,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_2);
             checkMinefind(s_3);
@@ -372,8 +387,7 @@ window.onload = function () {
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_1);
             checkMinefind(s_2);
@@ -386,12 +400,10 @@ window.onload = function () {
       } else {
          for (let j in num) {
             if (s_1 == num[j] || s_2 == num[j] || s_3 == num[j] || s_4 == num[j] || s_5 == num[j] || s_6 == num[j] || s_7 == num[j] || s_8 == num[j]) {
-               console.log("j" + num[j]);
                cnt++;
             }
          }
-         $(temp_id).html(cnt);
-         $(temp_id).addClass("clickNotMine");
+         clickNotMine_func(temp_id, cnt);
          if (cnt == 0) {
             checkMinefind(s_1);
             checkMinefind(s_2);
@@ -413,9 +425,19 @@ window.onload = function () {
 
    function checkMinefind(n) {
       if (!$(makeNumId(n)).hasClass("clickNotMine") && !$(makeNumId(n)).hasClass("mine")) {
+         open_div_set.add(n);
          minefind(n);
       }
    }
+
+   function clickNotMine_func(temp_id, cnt){
+      $(temp_id).html(cnt);
+      $(temp_id).addClass("clickNotMine");
+
+      if(open_div_set.size == 88){
+          won();
+      }
+  }
 
    // 타이머
    const countToDate = new Date().setHours(new Date().getHours())
