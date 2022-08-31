@@ -62,13 +62,13 @@ window.onload = function () {
    function won(){
       clearInterval(timer);
       $("#game_board").addClass("beat");
-     $('.click_cnt').html(click_cnt);
+      $('.click_cnt').html(click_cnt);
 
-     // 시간   
-     time_func();
+      // 시간   
+      time_func();
 
-     $('#won').css('display','block');
-     $('#won').css({opacity: 0}).animate({opacity: 1}, 1100);
+      $('#won').css('display','block');
+      $('#won').css({opacity: 0}).animate({opacity: 1}, 1100);
    }
 
    // 시간
@@ -94,6 +94,9 @@ window.onload = function () {
          $(this).addClass("clickNotMine");
          console.log(k);
          open_div_set.add(k);
+         if(open_div_set.size == 88){
+            won();
+         }
          let s_1 = k - 11;
          let s_2 = k - 10;
          let s_3 = k - 9;
@@ -111,7 +114,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("좌측위쪽");
+            // console.log("좌측위쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_5);
@@ -126,7 +129,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("우측위쪽");
+            // console.log("우측위쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_4);
@@ -141,7 +144,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("좌측아래쪽");
+            // console.log("좌측아래쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_2);
@@ -156,7 +159,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("우측아래쪽");
+            // console.log("우측아래쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_1);
@@ -171,7 +174,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("위쪽");
+            // console.log("위쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_4);
@@ -188,7 +191,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("오른쪽");
+            // console.log("오른쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_1);
@@ -205,7 +208,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("왼쪽");
+            // console.log("왼쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_2);
@@ -222,7 +225,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("아래쪽");
+            // console.log("아래쪽");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_1);
@@ -238,7 +241,7 @@ window.onload = function () {
                   cnt++;
                }
             }
-            console.log("가운데");
+            // console.log("가운데");
             $(this).html(cnt);
             if (cnt == 0) {
                minefind(s_1);
