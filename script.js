@@ -67,6 +67,9 @@ window.onload = function () {
       // 시간   
       time_func();
 
+      // 점수
+      score_func();
+
       $('#won').css('display','block');
       $('#won').css({opacity: 0}).animate({opacity: 1}, 1100);
    }
@@ -80,6 +83,25 @@ window.onload = function () {
           $('.minutes_time').html(m_time);
       }
       $('.seconds_time').html(s_time);
+   }
+
+   // 점수
+   function score_func() {
+      let m_time = $('#minutes_tens').text() + $('#minutes_ones').text();
+      let s_time = $('#seconds_tens').text() + $('#seconds_ones').text();
+      let total_time = 0;
+      if (m_time != "00") {
+          score += 60 * Number(m_time);
+      }
+      total_time += Number(s_time);
+      
+      let score = (30 / (0.1 * total_time + 27) + 15 / (0.2 * click_cnt + 12)) * 50;
+      
+      if(score >= 100){
+         $('.score').html("100");
+      }else{
+         $('.score').html(Math.ceil(score * 1000) / 1000);
+      }
    }
 
    $(document).on('mousedown', '.notMine, .mine', function (e) {
