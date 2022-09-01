@@ -95,7 +95,7 @@ window.onload = function () {
       }
       total_time += Number(s_time);
       
-      let score = (30 / (0.1 * total_time + 27) + 15 / (0.2 * click_cnt + 12)) * 50;
+      let score = (30 / (0.1 * total_time + 27) + 20 / (0.2 * click_cnt + 16)) * 50;
       
       if(score >= 100){
          $('.score').html("100");
