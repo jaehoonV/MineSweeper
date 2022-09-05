@@ -55,11 +55,11 @@ window.onload = function () {
       // 시간   
       time_func();
 
-      $('#failed').css('display','block');
-      $('#failed').css({opacity: 0}).animate({opacity: 1}, 1100);
+      $('#failed').css('display', 'block');
+      $('#failed').css({ opacity: 0 }).animate({ opacity: 1 }, 1100);
    })
 
-   function won(){
+   function won() {
       clearInterval(timer);
       $("#game_board").addClass("beat");
       $('.click_cnt').html(click_cnt);
@@ -70,8 +70,8 @@ window.onload = function () {
       // 점수
       score_func();
 
-      $('#won').css('display','block');
-      $('#won').css({opacity: 0}).animate({opacity: 1}, 1100);
+      $('#won').css('display', 'block');
+      $('#won').css({ opacity: 0 }).animate({ opacity: 1 }, 1100);
    }
 
    // 시간
@@ -79,8 +79,8 @@ window.onload = function () {
       let m_time = $('#minutes_tens').text() + $('#minutes_ones').text();
       let s_time = $('#seconds_tens').text() + $('#seconds_ones').text();
       if (m_time != "00") {
-          m_time += "분";
-          $('.minutes_time').html(m_time);
+         m_time += "분";
+         $('.minutes_time').html(m_time);
       }
       $('.seconds_time').html(s_time);
    }
@@ -91,15 +91,15 @@ window.onload = function () {
       let s_time = $('#seconds_tens').text() + $('#seconds_ones').text();
       let total_time = 0;
       if (m_time != "00") {
-          score += 60 * Number(m_time);
+         score += 60 * Number(m_time);
       }
       total_time += Number(s_time);
-      
+
       let score = (30 / (0.1 * total_time + 27) + 20 / (0.2 * click_cnt + 16)) * 50;
-      
-      if(score >= 100){
+
+      if (score >= 100) {
          $('.score').html("100");
-      }else{
+      } else {
          $('.score').html(Math.ceil(score * 1000) / 1000);
       }
    }
@@ -116,7 +116,7 @@ window.onload = function () {
          $(this).addClass("clickNotMine");
          console.log(k);
          open_div_set.add(k);
-         if(open_div_set.size == 88){
+         if (open_div_set.size == 88) {
             won();
          }
          let s_1 = k - 11;
@@ -455,65 +455,65 @@ window.onload = function () {
       }
    }
 
-   function clickNotMine_func(temp_id, cnt){
+   function clickNotMine_func(temp_id, cnt) {
       $(temp_id).html(cnt);
       $(temp_id).addClass("clickNotMine");
 
-      if(open_div_set.size == 88){
-          won();
+      if (open_div_set.size == 88) {
+         won();
       }
-  }
+   }
 
    // 타이머
    const countToDate = new Date().setHours(new Date().getHours())
    let previousTimeBetweenDates
    let timer = setInterval(() => {
-       const currentDate = new Date()
-       const timeBetweenDates = Math.ceil((currentDate - countToDate) / 1000)
-       flipAllCards(timeBetweenDates)
-       previousTimeBetweenDates = timeBetweenDates
+      const currentDate = new Date()
+      const timeBetweenDates = Math.ceil((currentDate - countToDate) / 1000)
+      flipAllCards(timeBetweenDates)
+      previousTimeBetweenDates = timeBetweenDates
    }, 250)
 
    function flipAllCards(time) {
-       const seconds = time % 60
-       const minutes = Math.floor(time / 60) % 60
-    
-       flip(document.querySelector("[data-minutes-tens]"), Math.floor(minutes / 10))
-       flip(document.querySelector("[data-minutes-ones]"), minutes % 10)
-       flip(document.querySelector("[data-seconds-tens]"), Math.floor(seconds / 10))
-       flip(document.querySelector("[data-seconds-ones]"), seconds % 10)
-    }
-    
-    function flip(flipCard, newNumber) {
-       const topHalf = flipCard.querySelector(".top")
-       const startNumber = parseInt(topHalf.textContent)
-       if (newNumber === startNumber) return
-    
-       const bottomHalf = flipCard.querySelector(".bottom")
-       const topFlip = document.createElement("div")
-       topFlip.classList.add("top-flip")
-       const bottomFlip = document.createElement("div")
-       bottomFlip.classList.add("bottom-flip")
-    
-       top.textContent = startNumber
-       bottomHalf.textContent = startNumber
-       topFlip.textContent = startNumber
-       bottomFlip.textContent = newNumber
-    
-       topFlip.addEventListener("animationstart", e => {
-          topHalf.textContent = newNumber
-       })
-       topFlip.addEventListener("animationend", e => {
-          topFlip.remove()
-       })
-       bottomFlip.addEventListener("animationend", e => {
-          bottomHalf.textContent = newNumber
-          bottomFlip.remove()
-       })
-       flipCard.append(topFlip, bottomFlip)
-    }
-   $('.retry_btn').click(function() {
+      const seconds = time % 60
+      const minutes = Math.floor(time / 60) % 60
+
+      flip(document.querySelector("[data-minutes-tens]"), Math.floor(minutes / 10))
+      flip(document.querySelector("[data-minutes-ones]"), minutes % 10)
+      flip(document.querySelector("[data-seconds-tens]"), Math.floor(seconds / 10))
+      flip(document.querySelector("[data-seconds-ones]"), seconds % 10)
+   }
+
+   function flip(flipCard, newNumber) {
+      const topHalf = flipCard.querySelector(".top")
+      const startNumber = parseInt(topHalf.textContent)
+      if (newNumber === startNumber) return
+
+      const bottomHalf = flipCard.querySelector(".bottom")
+      const topFlip = document.createElement("div")
+      topFlip.classList.add("top-flip")
+      const bottomFlip = document.createElement("div")
+      bottomFlip.classList.add("bottom-flip")
+
+      top.textContent = startNumber
+      bottomHalf.textContent = startNumber
+      topFlip.textContent = startNumber
+      bottomFlip.textContent = newNumber
+
+      topFlip.addEventListener("animationstart", e => {
+         topHalf.textContent = newNumber
+      })
+      topFlip.addEventListener("animationend", e => {
+         topFlip.remove()
+      })
+      bottomFlip.addEventListener("animationend", e => {
+         bottomHalf.textContent = newNumber
+         bottomFlip.remove()
+      })
+      flipCard.append(topFlip, bottomFlip)
+   }
+   $('.retry_btn').click(function () {
       location.reload();
    });
-   
+
 }
